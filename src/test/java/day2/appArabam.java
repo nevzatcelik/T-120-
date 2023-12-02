@@ -1,8 +1,11 @@
 package day2;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -10,6 +13,7 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class appArabam {
@@ -37,19 +41,64 @@ public class appArabam {
     }
 
     @Test
-    public void arabamAppTest(){
+    public void arabamAppTest() throws InterruptedException {
       //  driver.activateApp("com.dogan.arabam");
         // uygulamanin basarili bir sekilde yuklendigi dogrulanir
-        // uygulaminin basarili bir sekilde acildigi dogrulanir
-        // alt menuden ilan ara butonuna tiklanir
-        // kategori olarak otomobil secilir
-        // arac olarak Volkswagen secilir
-        // arac markasi olarak passat secilir
-        // 1.4 TSI BlueMotion secilir
-        // Paket secimi yapilir
-        // Ucuzdan pahaliya siralama yaparak filtreleme yapilir
-        // Gelen en ucuz aracin 500.000 tl den buyuk oldugu dogrulanir
-
         Assert.assertTrue(driver.isAppInstalled("com.dogan.arabam"));
+
+        // uygulaminin basarili bir sekilde acildigi dogrulanir
+        Assert.assertTrue(driver.findElementByXPath("//*[@text='Alırken, satarken kullanırken']").isDisplayed());
+        // alt menuden ilan ara butonuna tiklanir
+        driver.findElementByXPath("//*[@text='İlan Ara']").click();
+        // kategori olarak otomobil secilir
+        driver.findElementByXPath("//*[@text='Otomobil']").click();
+        // arac olarak Volkswagen secilir
+        Thread.sleep(2000);
+        TouchAction action=new TouchAction<>(driver);
+        action.press(PointOption.point(508,1538)) // press kismi ekranda tiklama kaydirma islemi icin tiklama yapacagimiz ilk nokta
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(75))) // baslangic noktasi ile bitis noktasi arasindaki gecen sure
+                // eger wait suresi uzun olursa gidilen yol mesafesi daha AZ olacaktir
+                // eger ki wait suresi kisa olursa gidilen yol mesafesi daha FAZLA olacaktir
+                .moveTo(PointOption.point(508,398)) // baslangic noktasindan baslayarak gidilecek bitis noktasinin  koordinatlarini ifade eder
+                .release() // parmagimizi tipki gunluk kullanimdaki gibi ekrandan kaldirma serbest birakma eylemidir
+                .perform(); // verilen action gorevlerini yerine getirmesi icin actiona verilen emirdir!
+        Thread.sleep(1000);
+        /* action.press(PointOption.point(508,398)) // press kismi ekranda tiklama kaydirma islemi icin tiklama yapacagimiz ilk nokta
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(100))) // baslangic noktasi ile bitis noktasi arasindaki gecen sure
+                // eger wait suresi uzun olursa gidilen yol mesafesi daha AZ olacaktir
+                // eger ki wait suresi kisa olursa gidilen yol mesafesi daha FAZLA olacaktir
+                .moveTo(PointOption.point(508,1538)) // baslangic noktasindan baslayarak gidilecek bitis noktasinin  koordinatlarini ifade eder
+                .release() // parmagimizi tipki gunluk kullanimdaki gibi ekrandan kaldirma serbest birakma eylemidir
+                .perform(); // verilen action
+
+         */
+    // 285,1289
+        action.press(PointOption.point(285,1289))
+                .release()
+                .perform();
+        // arac markasi olarak passat secilir
+        driver.findElementByXPath("//*[@text='Passat']").click();
+        // 1.4 TSI BlueMotion secilir
+        driver.findElementByXPath("//*[@text='1.4 TSi BlueMotion']").click();
+        // Paket secimi yapilir
+        driver.findElementByXPath("//*[@text='Highline']").click();
+        Thread.sleep(750);
+        // Ucuzdan pahaliya siralama yaparak filtreleme yapilir
+        driver.findElementById("com.dogan.arabam:id/imageViewSorting").click();
+        Thread.sleep(500);
+        driver.findElementByXPath("//*[@text='Fiyat - Ucuzdan Pahalıya']").click();
+        // Gelen en ucuz aracin 500.000 tl den buyuk oldugu dogrulanir
+        Thread.sleep(500);
+        String aracFiyati=driver.findElementByXPath("//*[@resource-id=\"com.dogan.arabam:id/tvPrice\"]").getText();
+        System.out.println(aracFiyati);
+
+      //  aracFiyati=aracFiyati.replaceAll(".","").replaceAll(" TL","");
+         aracFiyati=aracFiyati.replaceAll("\\D","");
+                // 735000
+                //735000
+
+        Assert.assertTrue(Integer.parseInt(aracFiyati)>500000);
+
+
     }
 }
