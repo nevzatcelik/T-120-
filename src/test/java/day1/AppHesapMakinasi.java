@@ -41,7 +41,7 @@ public class AppHesapMakinasi {
         capabilities.setCapability("app","C:\\Users\\ahmet\\IdeaProjects\\Appium_T-120\\Apps\\Calculator_8.4 (503542421)_Apkpure (3).apk");
 
         driver=new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 
         // uygulamanin yuklendigini dogrular(isInstalled)
