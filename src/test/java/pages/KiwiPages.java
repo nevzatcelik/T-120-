@@ -14,5 +14,9 @@ public class KiwiPages {
     }
 
 
+    @FindBy(xpath = "//*[@text='Continue as a guest']")
+    public WebElement misafirButonu;
 
+    @FindBy(xpath = "//*[@text='One way']")
+    public WebElement oneWayButton;
 }
