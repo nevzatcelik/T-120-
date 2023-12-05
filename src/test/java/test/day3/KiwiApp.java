@@ -44,14 +44,45 @@ public class KiwiApp {
         // Trip type,one way olarak secilir
            ReusableMethods.tiklamaMethodu(274,617,500);
            pages.oneWayButton.click();
-        // kalkis ulkesi secenegine tiklanir ve default olan ulke kaldirilir
+        // kalkis ulkesi secenegine tiklanir ve default olan ulke kaldirilir 405,774
+        ReusableMethods.tiklamaMethodu(405,774,750);
+        ReusableMethods.tiklamaMethodu(1011,136,1000);
       //  ReusableMethods.screenScroolMethod(500,750,75,500,750,0);
         // kalkis yapilacak ulke/sehir girilir ve sec e tiklanir
-        // varis ulkesi secenegine tiklanir ve gidilecek ulke girilir
+        if (!driver.isKeyboardShown()){
+            pages.aramaKutusu.sendKeys("Istanbul");
+        } else {
+            driver.getKeyboard().pressKey("Istanbul");
+        }
+        Thread.sleep(1000);
+        ReusableMethods.tiklamaMethodu(369,292,1000);
+        pages.chooseButton.click();
+        // varis ulkesi secenegine tiklanir ve gidilecek ulke girilir 369,292
+         pages.anywhereButton.click();
+          driver.getKeyboard().pressKey("Varsova");
+        Thread.sleep(1000);
+         ReusableMethods.tiklamaMethodu(369,292,1000);
+         pages.chooseButton.click();
         // gidis tarihi eylul ayinin 21 i olarak secilir ve set date e tiklanir
+        pages.anyTimeButton.click();
+        // 541,1341
+        Thread.sleep(2000);
+      //  ReusableMethods.screenScroolMethod(541,1341,800,548,482,750);
+         ReusableMethods.tiklamaMethodu(672,1140,1000);
+         pages.setDateButton.click();
+
         // search butonuna tiklanir
+        pages.searchButton.click();
         // en  ucuz ve aktarmasiz filtrelemeleri yapilir
+        Thread.sleep(4000);
+        ReusableMethods.tiklamaMethodu(259,259,750);
+        ReusableMethods.tiklamaMethodu(409,584,750);
+        pages.stopButton.click();
+        pages.nanStopButton.click();
+        Thread.sleep(2500);
         // gelen bilet fiyati kaydedilir ve kullanicin telefonuna sms olarak gonderilir
+        String fiyat= pages.priceBox.getText();
+        driver.sendSMS("11111111111","Bu ucun icin fiyatiniz: "+fiyat);
 
     }
 }
