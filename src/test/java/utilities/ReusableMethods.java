@@ -26,4 +26,11 @@ public class ReusableMethods {
                 .perform();
         Thread.sleep(bekleme);
     }
+
+    public static void scrollWithUiScrollable(String elementText) {
+        AndroidDriver driver = (AndroidDriver)  Driver.getAndroidDriver();
+        driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + elementText + "\"))");
+        driver.findElementByXPath("//*[@text='" + elementText + "']").click();
+
+    }
 }

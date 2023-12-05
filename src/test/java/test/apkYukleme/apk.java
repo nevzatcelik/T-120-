@@ -24,7 +24,7 @@ public class apk {
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,"UiAutomator2");
         // eger kullanmis oldugumuz cihazin Android surumu 6 ya da 6  dan buyukse UiAutomator2 yi kullanmamiz gerekiyor
         // eger kullanmis oldugumuz cihazin Android surumu 6 dan kucukse UiAuotmator u kullanmamiz gerekiyor.
-        capabilities.setCapability("app","C:\\Users\\ahmet\\IdeaProjects\\Appium_T-120\\Apps\\Kiwi.com - Book Cheap Flights_2023.14.0_Apkpure (1).apk");
+        capabilities.setCapability("app","C:\\Users\\ahmet\\IdeaProjects\\Appium_T-120\\Apps\\all-currency-converter-3-9-0 (1).apk");
 
         driver=new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
